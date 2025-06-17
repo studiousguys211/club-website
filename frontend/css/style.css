@@ -1,0 +1,139 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    background-color: #34495e;
+    margin: 0;
+}
+
+nav li {
+    margin: 0 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: block;
+}
+
+nav a:hover, nav a.active {
+    background-color: #16a085;
+    border-radius: 4px;
+}
+
+/* New styles for left/right alignment */
+.left {
+    margin-right: auto; /* Pushes everything else to the right */
+}
+
+.right {
+    margin-left: 0.5rem; /* Adds spacing between right-aligned items */
+}
+
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+/* Home Page Specific */
+.image-gallery {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.image-gallery img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.event-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+blockquote {
+    font-style: italic;
+    border-left: 4px solid #16a085;
+    padding-left: 1rem;
+    margin: 1rem 0;
+}
+
+cite {
+    display: block;
+    margin-top: 0.5rem;
+    font-style: normal;
+    font-weight: bold;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #34495e;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+.club-logo {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.club-logo img {
+    max-width: 100px;  /* Adjust based on your logo size */
+    height: 100px;
+    border-radius: 8px;  /* Optional rounded corners */
+}
+
+/* For responsive design */
+@media (max-width: 600px) {
+    .club-logo img {
+        max-width: 200px;
+    }
+}

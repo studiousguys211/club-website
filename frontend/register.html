@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Our Club</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="left"><a href="index.html" class="active">Home</a></li>
+                <li class="right"><a href="register.html">Join Us</a></li>
+                <li class="right"><a href="query.html">Admin</a></li>
+            </ul>
+        </nav>
+        <h1>Become a Member</h1>
+    </header>
+
+    <main>
+        <form id="registrationForm">
+            <h2>Personal Information</h2>
+            
+            <div class="form-group">
+                <label for="firstName">First Name*</label>
+                <input type="text" id="firstName" name="firstName" required 
+                       pattern="[A-Za-z]+" title="Alphabetic characters only">
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="middleName">Middle Name</label>
+                <input type="text" id="middleName" name="middleName" 
+                       pattern="[A-Za-z]+" title="Alphabetic characters only">
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name*</label>
+                <input type="text" id="lastName" name="lastName" required 
+                       pattern="[A-Za-z]+" title="Alphabetic characters only">
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="parentsName">Parent/Guardian Name*</label>
+                <input type="text" id="parentsName" name="parentsName" required 
+                       pattern="[A-Za-z ]+" title="Alphabetic characters and spaces only">
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number*</label>
+                <input type="tel" id="phone" name="phone" required 
+                       pattern="[0-9]{10}" title="10 digit number">
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email*</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth*</label>
+                <input type="date" id="dob" name="dob" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="aadhar">Aadhar Card Number*</label>
+                <input type="text" id="aadhar" name="aadhar" required 
+                       pattern="[0-9]{12}" title="12 digit number">
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="occupation">Occupation*</label>
+                <select id="occupation" name="occupation" required>
+                    <option value="">Select...</option>
+                    <option value="Student">Student</option>
+                    <option value="Working Professional">Working Professional</option>
+                </select>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="organization">School/College/Organization Name*</label>
+                <input type="text" id="organization" name="organization" required>
+                <span class="error-message"></span>
+            </div>
+
+            <h2>Address Information</h2>
+
+            <div class="form-group">
+                <label for="currentAddress">Current Address*</label>
+                <textarea id="currentAddress" name="currentAddress" required 
+                          minlength="10" maxlength="250"></textarea>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="permanentAddress">Permanent Address*</label>
+                <textarea id="permanentAddress" name="permanentAddress" required 
+                          minlength="10" maxlength="250"></textarea>
+                <span class="error-message"></span>
+            </div>
+
+            <h2>Areas of Interest (Rate 1-10)</h2>
+
+            <div class="interest-group">
+                <label for="art">Art</label>
+                <input type="number" id="art" name="art" min="1" max="10" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="interest-group">
+                <label for="sports">Sports</label>
+                <input type="number" id="sports" name="sports" min="1" max="10" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="interest-group">
+                <label for="music">Music</label>
+                <input type="number" id="music" name="music" min="1" max="10" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="interest-group">
+                <label for="technology">Technology</label>
+                <input type="number" id="technology" name="technology" min="1" max="10" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="interest-group">
+                <label for="literature">Literature</label>
+                <input type="number" id="literature" name="literature" min="1" max="10" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="interest-group">
+                <label for="science">Science</label>
+                <input type="number" id="science" name="science" min="1" max="10" required>
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="reason">Why do you want to join?* (Minimum 30 characters)</label>
+                <textarea id="reason" name="reason" required minlength="30"></textarea>
+                <span class="error-message"></span>
+            </div>
+
+            <button type="submit">Submit Application</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Our Club. All rights reserved.</p>
+    </footer>
+
+    <script src="js/register.js"></script>
+</body>
+</html>

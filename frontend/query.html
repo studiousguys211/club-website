@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Query</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="left"><a href="index.html" class="active">Home</a></li>
+                <li class="right"><a href="register.html">Join Us</a></li>
+                <li class="right"><a href="query.html">Admin</a></li>
+            </ul>
+        </nav>
+        <h1>Member Query System</h1>
+    </header>
+
+    <main>
+        <form id="queryForm">
+            <h2>Search Members</h2>
+            <p>Enter at least one search criteria</p>
+            
+            <div class="form-group">
+                <label for="searchName">Name</label>
+                <input type="text" id="searchName" name="searchName" 
+                       pattern="[A-Za-z ]+" title="Alphabetic characters only">
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="searchDob">Date of Birth</label>
+                <input type="date" id="searchDob" name="searchDob">
+                <span class="error-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="searchPhone">Phone Number</label>
+                <input type="tel" id="searchPhone" name="searchPhone" 
+                       pattern="[0-9]{10}" title="10 digit number">
+                <span class="error-message"></span>
+            </div>
+
+            <button type="submit">Search</button>
+        </form>
+
+        <div id="results">
+            <h2>Search Results</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>DOB</th>
+                        <th>Occupation</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                    <!-- Results will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Our Club. All rights reserved.</p>
+    </footer>
+
+    <script src="js/query.js"></script>
+</body>
+</html>
