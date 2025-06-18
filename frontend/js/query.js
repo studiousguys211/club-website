@@ -2,35 +2,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('queryForm');
     const resultsBody = document.getElementById('resultsBody');
     
-    // In a real application, you would fetch this from a server
-    const mockData = [
-        {
-            firstName: 'John',
-            lastName: 'Doe',
-            phone: '9876543210',
-            email: 'john@example.com',
-            dob: '1990-05-15',
-            occupation: 'Working Professional'
-        },
-        {
-            firstName: 'Jane',
-            lastName: 'Smith',
-            phone: '1234567890',
-            email: 'jane@example.com',
-            dob: '1995-08-22',
-            occupation: 'Student'
-        }
-    ];
-    
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const searchName = document.getElementById('searchName').value.trim().toLowerCase();
-        const searchDob = document.getElementById('searchDob').value;
+        const searchFName = document.getElementById('searchFName').value.trim();
+        const searchLName = document.getElementById('searchLName').value.trim();
+        const searchEmail = document.getElementById('searchEmail').value.trim();
         const searchPhone = document.getElementById('searchPhone').value.trim();
         
         // Validate at least one search criteria
-        if (!searchName && !searchDob && !searchPhone) {
+        if (!searchFName && !searchLName && !searchEmail && !searchPhone) {
             alert('Please enter at least one search criteria.');
             return;
         }
@@ -41,18 +22,46 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Perform search
-        const results = mockData.filter(member => {
-            const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
-            
-            return (
-                (!searchName || fullName.includes(searchName)) &&
-                (!searchDob || member.dob === searchDob) &&
-                (!searchPhone || member.phone === searchPhone)
-            );
-        });
+        // Validate email format if provided
+        if (searchEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(searchEmail)) {
+            alert('Please enter a valid email address.');
+            return;
+        }
         
-        displayResults(results);
+        try {
+            // Build query parameters
+            const params = new URLSearchParams();
+            if (searchFName) params.append('searchFName', searchFName);
+            if (searchLName) params.append('searchLName', searchLName);
+            if (searchEmail) params.append('searchEmail', searchEmail);
+            if (searchPhone) params.append('searchPhone', searchPhone);
+            
+            const response = await fetch(`http://localhost:5000/api/members?${params.toString()}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'include'
+            });
+            
+            if (!response.ok) {
+                // Try to get error message from response
+                let errorMsg = 'Failed to fetch members';
+                try {
+                    const errorData = await response.json();
+                    errorMsg = errorData.error || errorMsg;
+                } catch (e) {
+                    errorMsg = `HTTP error! status: ${response.status}`;
+                }
+                throw new Error(errorMsg);
+            }
+            
+            const data = await response.json();
+            displayResults(data);
+        } catch (error) {
+            console.error('Search error:', error);
+            alert(`Search failed: ${error.message}`);
+        }
     });
     
     function displayResults(results) {
@@ -71,24 +80,29 @@ document.addEventListener('DOMContentLoaded', function() {
         results.forEach(member => {
             const row = document.createElement('tr');
             
+            // Name cell
             const nameCell = document.createElement('td');
             nameCell.textContent = `${member.firstName} ${member.lastName}`;
             row.appendChild(nameCell);
             
+            // Phone cell
             const phoneCell = document.createElement('td');
             phoneCell.textContent = member.phone;
             row.appendChild(phoneCell);
             
+            // Email cell
             const emailCell = document.createElement('td');
             emailCell.textContent = member.email;
             row.appendChild(emailCell);
             
+            // DOB cell
             const dobCell = document.createElement('td');
             dobCell.textContent = member.dob;
             row.appendChild(dobCell);
             
+            // Occupation cell
             const occupationCell = document.createElement('td');
-            occupationCell.textContent = member.occupation;
+            occupationCell.textContent = member.occupation || 'N/A';
             row.appendChild(occupationCell);
             
             resultsBody.appendChild(row);

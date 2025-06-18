@@ -25,18 +25,24 @@
             <p>Enter at least one search criteria</p>
             
             <div class="form-group">
-                <label for="searchName">Name</label>
-                <input type="text" id="searchName" name="searchName" 
+                <label for="searchFName">First Name</label>
+                <input type="text" id="searchFName" name="searchFName" 
                        pattern="[A-Za-z ]+" title="Alphabetic characters only">
                 <span class="error-message"></span>
             </div>
-
             <div class="form-group">
-                <label for="searchDob">Date of Birth</label>
-                <input type="date" id="searchDob" name="searchDob">
+                <label for="searchLName">Last Name</label>
+                <input type="text" id="searchLName" name="searchLName" 
+                       pattern="[A-Za-z ]+" title="Alphabetic characters only">
                 <span class="error-message"></span>
             </div>
-
+            <div class="form-group">
+                <label for="searchEmail">Email</label>
+                <input type="email" id="searchEmail" name="searchEmail" 
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                    title="Enter a valid email address">
+                <span class="error-message"></span>
+            </div>
             <div class="form-group">
                 <label for="searchPhone">Phone Number</label>
                 <input type="tel" id="searchPhone" name="searchPhone" 
