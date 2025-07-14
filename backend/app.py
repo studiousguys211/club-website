@@ -7,6 +7,7 @@ import os
 from dotenv import load_dotenv
 import logging
 
+
 # Load environment variables
 load_dotenv()
 
@@ -22,6 +23,12 @@ CORS(app, resources={
     r"/api/*": {
         "origins": ALLOWED_ORIGINS,
         "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"],
+        "supports_credentials": True
+    },
+    r"/admin/*": {
+        "origins": ALLOWED_ORIGINS,
+        "methods": ["POST", "OPTIONS"],
         "allow_headers": ["Content-Type"],
         "supports_credentials": True
     }
@@ -89,7 +96,12 @@ def register_member():
         data = request.get_json()
         
         # Required fields validation
-        required_fields = ['firstName', 'lastName', 'phone', 'email', 'dob']
+        required_fields = [
+            'firstName', 'lastName', 'phone', 'email', 'dob',
+            'parentsName', 'aadhar', 'occupation', 'organization',
+            'currentAddress', 'permanentAddress', 'art', 'sports', 'music',
+            'technology', 'literature', 'science', 'reason'
+        ]
         for field in required_fields:
             if not data.get(field):
                 return jsonify({"error": f"{field} is required"}), 400
@@ -97,10 +109,24 @@ def register_member():
         # Create member document
         member = {
             "firstName": data['firstName'],
+            "middleName": data.get('middleName', ''),
             "lastName": data['lastName'],
+            "parentsName": data['parentsName'],
             "phone": data['phone'],
             "email": data['email'],
             "dob": datetime.strptime(data['dob'], '%Y-%m-%d'),
+            "aadhar": data['aadhar'],
+            "occupation": data['occupation'],
+            "organization": data['organization'],
+            "currentAddress": data['currentAddress'],
+            "permanentAddress": data['permanentAddress'],
+            "art": int(data['art']),
+            "sports": int(data['sports']),
+            "music": int(data['music']),
+            "technology": int(data['technology']),
+            "literature": int(data['literature']),
+            "science": int(data['science']),
+            "reason": data['reason'],
             "createdAt": datetime.now(timezone.utc),
             "updatedAt": datetime.now(timezone.utc)
         }
@@ -170,6 +196,61 @@ def query_members():
 def health_check():
     """Simple health check endpoint"""
     return jsonify({"status": "healthy"}), 200
+
+from flask_bcrypt import Bcrypt
+
+bcrypt = Bcrypt(app)
+
+@app.route('/admin/login', methods=['POST'])
+def admin_login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    if not username or not password:
+        return jsonify({"message": "Username and password required"}), 400
+
+    # Query from the "admin_credentials" collection
+    admin = db.admin_credentials.find_one({'username': username})
+
+    if not admin:
+        return jsonify({"message": "Invalid username"}), 401
+
+    # Check the password using bcrypt
+    if not bcrypt.check_password_hash(admin['password'], password):
+        return jsonify({"message": "Incorrect password"}), 401
+
+    return jsonify({"message": "Login successful", "token": "admin-token"}), 200
+
+@app.route('/api/members/<id>', methods=['PUT'])
+def update_member(id):
+    try:
+        data = request.get_json()
+        update_fields = {
+            "phone": data.get("phone"),
+            "email": data.get("email"),
+            "currentAddress": data.get("currentAddress"),
+            "permanentAddress": data.get("permanentAddress"),
+            "reason": data.get("reason"),
+            "updatedAt": datetime.now(timezone.utc)
+        }
+
+        # Remove None values to avoid overwriting fields with null
+        update_fields = {k: v for k, v in update_fields.items() if v is not None}
+
+        result = db.members.update_one(
+            {"_id": ObjectId(id)},
+            {"$set": update_fields}
+        )
+
+        if result.matched_count == 0:
+            return jsonify({"message": "Member not found"}), 404
+
+        return jsonify({"message": "Member updated successfully"}), 200
+
+    except Exception as e:
+        logger.error(f"Error updating member: {e}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

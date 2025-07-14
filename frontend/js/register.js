@@ -148,3 +148,27 @@ document.getElementById('reason').addEventListener('input', function() {
         }
     }
 });
+
+function updateBubblePosition(slider, bubble) {
+    const val = slider.value;
+    const min = slider.min;
+    const max = slider.max;
+    const percent = ((val - min) * 100) / (max - min);
+    
+    bubble.innerText = val;
+    bubble.style.left = `calc(${percent}% + (${8 - percent * 0.15}px))`;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    ['art', 'sports', 'music', 'technology', 'literature', 'science'].forEach(id => {
+        const slider = document.getElementById(id);
+        const bubble = document.getElementById(id + 'Value');
+
+        if (slider && bubble) {
+            updateBubblePosition(slider, bubble);
+            slider.addEventListener('input', () => {
+                updateBubblePosition(slider, bubble);
+            });
+        }
+    });
+});

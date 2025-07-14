@@ -13,7 +13,7 @@
             <ul>
                 <li class="left"><a href="index.html" class="active">Home</a></li>
                 <li class="right"><a href="register.html">Join Us</a></li>
-                <li class="right"><a href="query.html">Admin</a></li>
+                <li class="right"><a href="admin_login.html">Admin</a></li>
             </ul>
         </nav>
         <h1>Become a Member</h1>
@@ -107,44 +107,56 @@
                           minlength="10" maxlength="250"></textarea>
                 <span class="error-message"></span>
             </div>
-
-            <h2>Areas of Interest (Rate 1-10)</h2>
+            <h2>Areas of Interest (Rate 0–10)</h2>
 
             <div class="interest-group">
-                <label for="art">Art</label>
-                <input type="number" id="art" name="art" min="1" max="10" required>
-                <span class="error-message"></span>
+                <label for="art"><strong>Art</strong></label>
+                <div class="slider-container">
+                    <input type="range" id="art" name="art" min="0" max="10" value="5" required>
+                    <output id="artValue" class="value-bubble">5</output>
+                </div>
             </div>
 
             <div class="interest-group">
-                <label for="sports">Sports</label>
-                <input type="number" id="sports" name="sports" min="1" max="10" required>
-                <span class="error-message"></span>
+                <label for="sports"><strong>Sports</strong></label>
+                <div class="slider-container">
+                    <input type="range" id="sports" name="sports" min="0" max="10" value="5" required>
+                    <output id="sportsValue" class="value-bubble">5</output>
+                </div>
             </div>
 
             <div class="interest-group">
-                <label for="music">Music</label>
-                <input type="number" id="music" name="music" min="1" max="10" required>
-                <span class="error-message"></span>
+                <label for="music"><strong>Music</strong></label>
+                <div class="slider-container">
+                    <input type="range" id="music" name="music" min="0" max="10" value="5" required>
+                    <output id="musicValue" class="value-bubble">5</output>
+                </div>
             </div>
 
             <div class="interest-group">
-                <label for="technology">Technology</label>
-                <input type="number" id="technology" name="technology" min="1" max="10" required>
-                <span class="error-message"></span>
+                <label for="technology"><strong>Technology</strong></label>
+                <div class="slider-container">
+                    <input type="range" id="technology" name="technology" min="0" max="10" value="5" required>
+                    <output id="technologyValue" class="value-bubble">5</output>
+                </div>
             </div>
 
             <div class="interest-group">
-                <label for="literature">Literature</label>
-                <input type="number" id="literature" name="literature" min="1" max="10" required>
-                <span class="error-message"></span>
+                <label for="literature"><strong>Literature</strong></label>
+                <div class="slider-container">
+                    <input type="range" id="literature" name="literature" min="0" max="10" value="5" required>
+                    <output id="literatureValue" class="value-bubble">5</output>
+                </div>
             </div>
 
             <div class="interest-group">
-                <label for="science">Science</label>
-                <input type="number" id="science" name="science" min="1" max="10" required>
-                <span class="error-message"></span>
+                <label for="science"><strong>Science</strong></label>
+                <div class="slider-container">
+                    <input type="range" id="science" name="science" min="0" max="10" value="5" required>
+                    <output id="scienceValue" class="value-bubble">5</output>
+                </div>
             </div>
+
 
             <div class="form-group">
                 <label for="reason">Why do you want to join?* (Minimum 30 characters)</label>
